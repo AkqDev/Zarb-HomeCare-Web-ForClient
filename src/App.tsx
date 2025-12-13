@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { Header } from './components/Header';
@@ -26,6 +26,7 @@ export interface CartItem extends Product {
   selectedVariant: string;
 }
 
+// Keep variant if you want to handle product variants
 export type OnAddToCart = (product: Product, variant: string) => void;
 
 export default function App() {
@@ -78,7 +79,6 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-white">
-        {/* FIXED HEADER */}
         <Header
           totalItems={totalItems}
           isMenuOpen={isMenuOpen}
@@ -86,7 +86,6 @@ export default function App() {
           onOpenCart={() => setIsCartOpen(true)}
         />
 
-        {/* ✅ FIX: add padding-top so pages appear BELOW header */}
         <main className="pt-16">
           <Routes>
             <Route path="/" element={<Homepage onAddToCart={addToCart} />} />
