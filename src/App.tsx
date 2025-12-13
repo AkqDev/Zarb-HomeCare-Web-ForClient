@@ -1,4 +1,3 @@
-// src/App.tsx
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -10,14 +9,13 @@ import Cart from './components/Cart';
 import About from './components/About';
 import Contact from './components/Contact';
 
-import type { Product, CartItem, OnAddToCart } from './types';
+import type { CartItem, OnAddToCart } from './types';
 
 export default function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  // Add product to cart with selected variant
   const addToCart: OnAddToCart = (product, variant) => {
     setCartItems(prev => {
       const existingItem = prev.find(
@@ -37,19 +35,15 @@ export default function App() {
   };
 
   const updateCartQuantity = (id: string, variant: string, quantity: number) => {
-    if (quantity <= 0) {
-      setCartItems(prev =>
-        prev.filter(item => !(item.id === id && item.selectedVariant === variant))
-      );
-    } else {
-      setCartItems(prev =>
-        prev.map(item =>
+    setCartItems(prev =>
+      prev
+        .map(item =>
           item.id === id && item.selectedVariant === variant
             ? { ...item, quantity }
             : item
         )
-      );
-    }
+        .filter(item => item.quantity > 0)
+    );
   };
 
   const removeFromCart = (id: string, variant: string) => {
