@@ -5,9 +5,9 @@ export interface Product {
   category: string;
   price: number;
   image: string;
-  variants: string[];
-  reviews?: number;   // optional to fix TS type mismatch
-  rating?: number;    // optional to fix TS type mismatch
+  variants: string[];   // required (GOOD – fixes your Netlify error)
+  reviews?: number;
+  rating?: number;
   isNew?: boolean;
 }
 
