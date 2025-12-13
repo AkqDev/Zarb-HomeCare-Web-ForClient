@@ -87,12 +87,11 @@ export default function App() {
 
         <main className="pt-16">
           <Routes>
-            {/* ✅ Wrap addToCart to match Homepage props */}
+            {/* ✅ Wrap addToCart to pass a default variant */}
             <Route
               path="/"
               element={
                 <Homepage
-                  // Wrap to pass default variant "standard"
                   onAddToCart={(product) => addToCart(product, "standard")}
                 />
               }
