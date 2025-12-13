@@ -3,10 +3,9 @@ import {
   Leaf,
   Shield,
   Sparkles,
-  Users,
-  Award,
   Wind,
 } from "lucide-react";
+
 import { message } from "antd";
 import herobg from "../assets/main_bg.jpg";
 import product1 from "../assets/product1.jpg";
