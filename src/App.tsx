@@ -26,7 +26,6 @@ export interface CartItem extends Product {
   selectedVariant: string;
 }
 
-// Keep variant if you want to handle product variants
 export type OnAddToCart = (product: Product, variant: string) => void;
 
 export default function App() {
@@ -93,6 +92,7 @@ export default function App() {
               path="/"
               element={
                 <Homepage
+                  // Wrap to pass default variant "standard"
                   onAddToCart={(product) => addToCart(product, "standard")}
                 />
               }
