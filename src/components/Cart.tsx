@@ -1,10 +1,4 @@
-import React from 'react';
 import { X, Minus, Plus, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
-// import { ImageWithFallback } from './figma/ImageWithFallback'; // REMOVED as requested
-
-// --- Type Definitions (Assumed to be defined in '../App' but placed here for context/correctness) ---
-// Note: In a real project, this should be imported from a central types file.
-// Since the user is passing it via props, we define it here for TypeScript validity.
 
 interface Product {
   id: string;

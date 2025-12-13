@@ -1,4 +1,3 @@
-import React from 'react';
 import { Leaf, Heart, Users, Award, Target, Lightbulb } from 'lucide-react';
 
 // CORRECTED: Using 'export default function' to resolve the import error in App.tsx
