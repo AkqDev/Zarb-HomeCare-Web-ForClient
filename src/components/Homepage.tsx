@@ -27,10 +27,11 @@ interface Product {
   category: string;
   price: number;
   image: string;
+  variants?: string[]; // optional, to match App.tsx
 }
 
 interface HomepageProps {
-  onAddToCart: (product: Product) => void;
+  onAddToCart: (product: Product, variant: string) => void; // ✅ match App.tsx
 }
 
 const fadeUp = {
@@ -108,7 +109,8 @@ export default function Homepage({ onAddToCart }: HomepageProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {featuredProducts.map((product) => (
               <motion.div key={product.id} variants={fadeUp}>
-                <ProductCard product={product} onAddToCart={() => onAddToCart(product)} />
+                {/* ✅ Pass default variant 'standard' to match App.tsx */}
+                <ProductCard product={product} onAddToCart={() => onAddToCart(product, "standard")} />
               </motion.div>
             ))}
           </div>
