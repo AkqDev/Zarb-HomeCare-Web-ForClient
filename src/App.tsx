@@ -1,3 +1,4 @@
+// src/App.tsx
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -9,115 +10,88 @@ import Cart from './components/Cart';
 import About from './components/About';
 import Contact from './components/Contact';
 
-export interface Product {
-  id: string;
-  name: string;
-  category: string;
-  price: number;
-  image: string;
-  variants: string[];
-  reviews: number;
-  rating: number;
-  isNew?: boolean;
-}
-
-export interface CartItem extends Product {
-  quantity: number;
-  selectedVariant: string;
-}
-
-export type OnAddToCart = (product: Product, variant: string) => void;
+import type { Product, CartItem, OnAddToCart } from './types';
 
 export default function App() {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const addToCart: OnAddToCart = (product, variant) => {
-    setCartItems(prev => {
-      const existingItem = prev.find(
-        item => item.id === product.id && item.selectedVariant === variant
-      );
+  // Add product to cart with selected variant
+  const addToCart: OnAddToCart = (product, variant) => {
+    setCartItems(prev => {
+      const existingItem = prev.find(
+        item => item.id === product.id && item.selectedVariant === variant
+      );
 
-      if (existingItem) {
-        return prev.map(item =>
-          item.id === product.id && item.selectedVariant === variant
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
+      if (existingItem) {
+        return prev.map(item =>
+          item.id === product.id && item.selectedVariant === variant
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
 
-      return [...prev, { ...product, quantity: 1, selectedVariant: variant }];
-    });
-  };
+      return [...prev, { ...product, quantity: 1, selectedVariant: variant }];
+    });
+  };
 
-  const updateCartQuantity = (id: string, variant: string, quantity: number) => {
-    if (quantity <= 0) {
-      setCartItems(prev =>
-        prev.filter(item => !(item.id === id && item.selectedVariant === variant))
-      );
-    } else {
-      setCartItems(prev =>
-        prev.map(item =>
-          item.id === id && item.selectedVariant === variant
-            ? { ...item, quantity }
-            : item
-        )
-      );
-    }
-  };
+  const updateCartQuantity = (id: string, variant: string, quantity: number) => {
+    if (quantity <= 0) {
+      setCartItems(prev =>
+        prev.filter(item => !(item.id === id && item.selectedVariant === variant))
+      );
+    } else {
+      setCartItems(prev =>
+        prev.map(item =>
+          item.id === id && item.selectedVariant === variant
+            ? { ...item, quantity }
+            : item
+        )
+      );
+    }
+  };
 
-  const removeFromCart = (id: string, variant: string) => {
-    setCartItems(prev =>
-      prev.filter(item => !(item.id === id && item.selectedVariant === variant))
-    );
-  };
+  const removeFromCart = (id: string, variant: string) => {
+    setCartItems(prev =>
+      prev.filter(item => !(item.id === id && item.selectedVariant === variant))
+    );
+  };
 
-  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
-  return (
-    <BrowserRouter>
-      <div className="min-h-screen bg-white">
-        <Header
-          totalItems={totalItems}
-          isMenuOpen={isMenuOpen}
-          onToggleMenu={() => setIsMenuOpen(!isMenuOpen)}
-          onOpenCart={() => setIsCartOpen(true)}
-        />
+  return (
+    <BrowserRouter>
+      <div className="min-h-screen bg-white">
+        <Header
+          totalItems={totalItems}
+          isMenuOpen={isMenuOpen}
+          onToggleMenu={() => setIsMenuOpen(!isMenuOpen)}
+          onOpenCart={() => setIsCartOpen(true)}
+        />
 
-        <main className="pt-16">
-          <Routes>
-            {/*               FIX: Changed to pass the full 'addToCart' function directly.
-              This now matches the required 'OnAddToCart' type (product, variant). 
-              The logic to add a default variant should now be in the Homepage component.
-            */}
-            <Route
-              path="/"
-              element={
-                <Homepage
-                  onAddToCart={addToCart}
-                />
-              }
-            />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route
-              path="*"
-              element={<h1 className="text-center py-20 text-3xl">404: Page Not Found</h1>}
-            />
-          </Routes>
-        </main>
+        <main className="pt-16">
+          <Routes>
+            <Route path="/" element={<Homepage onAddToCart={addToCart} />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route
+              path="*"
+              element={<h1 className="text-center py-20 text-3xl">404: Page Not Found</h1>}
+            />
+          </Routes>
+        </main>
 
-        <Footer />
+        <Footer />
 
-        <Cart
-          isOpen={isCartOpen}
-          onClose={() => setIsCartOpen(false)}
-          items={cartItems}
-          onUpdateQuantity={updateCartQuantity}
-          onRemove={removeFromCart}
-        />
-      </div>
-    </BrowserRouter>
-  );
+        <Cart
+          isOpen={isCartOpen}
+          onClose={() => setIsCartOpen(false)}
+          items={cartItems}
+          onUpdateQuantity={updateCartQuantity}
+          onRemove={removeFromCart}
+        />
+      </div>
+    </BrowserRouter>
+  );
 }
