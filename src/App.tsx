@@ -88,7 +88,15 @@ export default function App() {
 
         <main className="pt-16">
           <Routes>
-            <Route path="/" element={<Homepage onAddToCart={addToCart} />} />
+            {/* ✅ Wrap addToCart to match Homepage props */}
+            <Route
+              path="/"
+              element={
+                <Homepage
+                  onAddToCart={(product) => addToCart(product, "standard")}
+                />
+              }
+            />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route
