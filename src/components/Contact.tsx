@@ -14,7 +14,6 @@ import {
 } from 'lucide-react';
 
 
-// 1. Define the interface for the form data state
 interface FormData {
   name: string;
   email: string;
