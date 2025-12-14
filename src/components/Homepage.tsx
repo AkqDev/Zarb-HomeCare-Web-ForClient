@@ -4,9 +4,11 @@ import {
   Shield,
   Sparkles,
   Wind,
+  Users,
+  ShieldCheck,
 } from "lucide-react";
-
 import { message } from "antd";
+
 import herobg from "../assets/main_bg.jpg";
 import product1 from "../assets/product1.jpg";
 import product2 from "../assets/product2.jpg";
@@ -16,26 +18,36 @@ import product4 from "../assets/product4.jpg";
 import type { Product, OnAddToCart } from "../types";
 import type { FormEvent, ReactNode } from "react";
 
-// ⬇️ Google Fonts
-const fontLink = document.createElement("link");
-fontLink.href =
-  "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;500;700&display=swap";
-fontLink.rel = "stylesheet";
-document.head.appendChild(fontLink);
-
-interface HomepageProps {
-  onAddToCart: OnAddToCart;
+/* ---------------- GOOGLE FONTS (SAFE WAY) ---------------- */
+if (!document.getElementById("google-fonts")) {
+  const link = document.createElement("link");
+  link.id = "google-fonts";
+  link.rel = "stylesheet";
+  link.href =
+    "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;500;700&display=swap";
+  document.head.appendChild(link);
 }
 
+/* ---------------- ANIMATIONS ---------------- */
+
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 50, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
 };
 
 const stagger = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.15 } },
 };
+
+interface HomepageProps {
+  onAddToCart: OnAddToCart;
+}
 
 export default function Homepage({ onAddToCart }: HomepageProps) {
   const featuredProducts: Product[] = [
@@ -80,76 +92,88 @@ export default function Homepage({ onAddToCart }: HomepageProps) {
 
   return (
     <div className="bg-white font-[Poppins]">
-      {/* HERO */}
+      {/* ---------------- HERO ---------------- */}
       <section className="relative h-[500px] md:h-[650px] overflow-hidden">
         <motion.img
-          initial={{ scale: 1.1 }}
+          initial={{ scale: 1.15 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 1.5 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
           src={herobg}
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/20" />
       </section>
 
-      {/* FEATURES */}
+      {/* ---------------- FEATURES ---------------- */}
       <motion.section
         variants={stagger}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true }}
+        viewport={{ once: false, amount: 0.2 }}
         className="py-16 bg-white"
       >
         <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-8">
           {[
             {
-              icon: <Leaf className="w-8 h-8 text-emerald-600" />,
+              icon: <Leaf className="w-8 h-8 text-[#786808]" />,
               title: "Natural Lemon Power",
               desc: "Enriched with real lemon extracts for a sparkling shine.",
             },
             {
-              icon: <Shield className="w-8 h-8 text-blue-600" />,
+              icon: <Shield className="w-8 h-8 text-[#786808]" />,
               title: "Gentle on Hands",
               desc: "Protects your hands after daily use.",
             },
             {
-              icon: <Sparkles className="w-8 h-8 text-yellow-600" />,
+              icon: <Sparkles className="w-8 h-8 text-[#786808]" />,
               title: "Cuts Grease Instantly",
               desc: "Removes tough oil and stains fast.",
             },
             {
-              icon: <Wind className="w-8 h-8 text-orange-600" />,
+              icon: <Wind className="w-8 h-8 text-[#786808]" />,
               title: "Fresh Lemon Aroma",
               desc: "Leaves utensils smelling fresh.",
             },
           ].map((f, i) => (
-            <motion.div key={i} variants={fadeUp}>
+            <motion.div
+              key={i}
+              variants={fadeUp}
+              whileHover={{ y: -6, scale: 1.05 }}
+            >
               <Feature {...f} />
             </motion.div>
           ))}
         </div>
       </motion.section>
 
-      {/* PRODUCTS */}
+      {/* ---------------- PRODUCTS ---------------- */}
       <motion.section
+        variants={stagger}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true }}
-        variants={stagger}
+        viewport={{ once: false, amount: 0.2 }}
         className="py-10 mb-5"
       >
         <div className="max-w-7xl mx-auto px-4">
           <motion.div variants={fadeUp} className="text-center mb-8">
             <h2 className="text-3xl font-bold">Featured Products</h2>
-            <p className="text-gray-600 text-sm">Top-selling utensils liquids</p>
+            <p className="text-gray-600 text-sm">
+              Top-selling utensils liquids
+            </p>
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {featuredProducts.map(product => (
-              <motion.div key={product.id} variants={fadeUp}>
+              <motion.div
+                key={product.id}
+                variants={fadeUp}
+                whileHover={{ scale: 1.04 }}
+              >
                 <ProductCard
                   product={product}
-                  onAddToCart={() => onAddToCart(product, product.variants[0])}
+                  onAddToCart={() =>
+                    onAddToCart(product, product.variants[0])
+                  }
                 />
               </motion.div>
             ))}
@@ -157,11 +181,54 @@ export default function Homepage({ onAddToCart }: HomepageProps) {
         </div>
       </motion.section>
 
-      {/* NEWSLETTER */}
+      {/* ---------------- WHY CHOOSE ZARB ---------------- */}
+      <section className="my-10 w-full bg-[#786808] font-['Inter']">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.3 }}
+          variants={fadeUp}
+          className="text-center py-12 text-white"
+        >
+          <h1 className="font-bold text-3xl mb-2">Why Choose Zarb?</h1>
+          <p className="font-medium text-sm opacity-90">
+            Trusted by thousands of homes
+          </p>
+        </motion.div>
+
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 pb-12 px-6">
+          {[
+            { icon: <Users />, title: "50,000+", text: "Happy Families" },
+            { icon: <ShieldCheck />, title: "Premium", text: "Quality Assurance" },
+            { icon: <Leaf />, title: "Zero Chemicals", text: "Safe & Natural" },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.3 }}
+              variants={fadeUp}
+              whileHover={{ y: -8, scale: 1.05 }}
+              className="flex flex-col items-center text-center text-white"
+            >
+              <div className="mb-3 bg-gray-200 rounded-full p-3 text-[#786808]">
+                {item.icon}
+              </div>
+              <h2 className="text-3xl font-bold text-gray-100">
+                {item.title}
+              </h2>
+              <p className="text-sm mt-1 opacity-90">{item.text}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ---------------- NEWSLETTER ---------------- */}
       <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.3 }}
+        variants={fadeUp}
         className="py-16 bg-white"
       >
         <div className="max-w-4xl mx-auto px-4 text-center">
@@ -182,7 +249,7 @@ export default function Homepage({ onAddToCart }: HomepageProps) {
             />
             <button
               type="submit"
-              className="bg-[#786808] text-white px-6 py-3 rounded-full font-semibold shadow-md"
+              className="bg-[#786808] text-white px-6 py-3 rounded-full font-semibold shadow-md hover:scale-105 transition"
             >
               Subscribe
             </button>
@@ -193,7 +260,7 @@ export default function Homepage({ onAddToCart }: HomepageProps) {
   );
 }
 
-/* ---------- Typed Components (NO design change) ---------- */
+/* ---------------- COMPONENTS ---------------- */
 
 interface FeatureProps {
   icon: ReactNode;
@@ -232,11 +299,11 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => (
       <h3 className="text-sm font-bold mb-2">{product.name}</h3>
       <div className="flex items-center justify-between">
         <span className="text-xl font-bold text-[#786808]">
-          Pkr{product.price}
+          Pkr {product.price}
         </span>
         <button
           onClick={onAddToCart}
-          className="bg-[#786808] text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md"
+          className="bg-[#786808] text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md hover:scale-105 transition"
         >
           Add to Cart
         </button>
