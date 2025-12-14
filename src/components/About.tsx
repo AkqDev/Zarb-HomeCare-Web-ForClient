@@ -1,9 +1,10 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";  // runtime import
+import type { Variants } from "framer-motion"; // type-only import
 import { Award, Heart, Shield } from 'lucide-react'; 
 import about from '../assets/about.jpg'; 
 
 // Animation variants for re-use
-const container = {
+const container: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -13,14 +14,17 @@ const container = {
   },
 };
 
-const item = {
+const item: Variants = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } },
+  show: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { type: 'spring', stiffness: 100, damping: 20 } 
+  },
 };
 
 export default function About() {
   return (
-    // Add Poppins font via className 
     <div className="min-h-screen bg-white font-poppins"> 
       
       {/* Our Story */}
@@ -35,21 +39,26 @@ export default function About() {
             
             {/* Story Text */}
             <motion.div variants={container} initial="hidden" animate="show">
-              <motion.h2 variants={item} className="text-4xl mb-6 font-bold text-[#786808] text-center md:text-left px-3">Our Story</motion.h2>
-              <div className="space-y-4 text-gray-600 text-center md:text-left mx-3 md:mxauto">
+              <motion.h2 
+                variants={item} 
+                className="text-4xl mb-6 font-bold text-[#786808] text-center md:text-left px-3"
+              >
+                Our Story
+              </motion.h2>
+              <div className="space-y-4 text-gray-600 text-center md:text-left mx-3 md:mx-auto">
                 <motion.p variants={item}>
-                  **ZARB** was founded with a simple goal: to deliver reliable, durable, and ethically made everyday essentials. Our stainless steel scourers are crafted for superior performance, scratch resistance, and a premium, long-lasting finish.
+                  <strong>ZARB</strong> was founded with a simple goal: to deliver reliable, durable, and ethically made everyday essentials. Our stainless steel scourers are crafted for superior performance, scratch resistance, and a premium, long-lasting finish.
                 </motion.p>
                 <motion.p variants={item}>
-                  Beyond quality, we are a purpose-driven brand. Through the **ZARB Support Initiative**, a portion of every purchase supports humanitarian relief efforts in Palestine.
+                  Beyond quality, we are a purpose-driven brand. Through the <strong>ZARB Support Initiative</strong>, a portion of every purchase supports humanitarian relief efforts in Palestine.
                 </motion.p>
                 <motion.p variants={item}>
-                  Choosing ZARB means choosing **quality with conscience**—cleaning your home while helping build hope.
+                  Choosing ZARB means choosing <strong>quality with conscience</strong>—cleaning your home while helping build hope.
                 </motion.p>
               </div>
             </motion.div>
 
-            {/* Image (Corrected: object-cover fills the container) */}
+            {/* Image */}
             <motion.div 
               className="relative h-96 rounded-2xl overflow-hidden shadow-2xl"
               initial={{ scale: 0.9, opacity: 0 }}
@@ -66,8 +75,8 @@ export default function About() {
         </div>
       </motion.section>
 
-      {/* Our Values - ZARB Version */}
-      <section className="py-10"> {/* Changed background for better separation */}
+      {/* Our Values */}
+      <section className="py-10">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div 
             className="text-center mb-12"
@@ -87,8 +96,7 @@ export default function About() {
             whileInView="show"
             viewport={{ once: true, amount: 0.3 }}
           >
-            
-            {/* Value 1: Premium Quality & Durability */}
+            {/* Value 1 */}
             <motion.div variants={item} className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
               <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Award className="w-8 h-8 text-[#786808]" /> 
@@ -99,7 +107,7 @@ export default function About() {
               </p>
             </motion.div>
 
-            {/* Value 2: Purpose-Driven & Ethical Sourcing */}
+            {/* Value 2 */}
             <motion.div variants={item} className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
               <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Heart className="w-8 h-8 text-[#786808]" />
@@ -110,7 +118,7 @@ export default function About() {
               </p>
             </motion.div>
 
-            {/* Value 3: Reliability & Design */}
+            {/* Value 3 */}
             <motion.div variants={item} className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
               <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Shield className="w-8 h-8 text-[#786808]" /> 
