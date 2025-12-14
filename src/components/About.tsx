@@ -41,7 +41,7 @@ export default function About() {
             <motion.div variants={container} initial="hidden" animate="show">
               <motion.h2 
                 variants={item} 
-                className="text-4xl mb-6 font-bold text-[#786808] text-center md:text-left px-3"
+                className="text-4xl mb-6 font-bold text-[#786808] text-center md:text-left "
               >
                 Our Story
               </motion.h2>

@@ -33,7 +33,7 @@ export default function Footer() {
 
   return (
     <motion.footer 
-      className="bg-black text-white mt-24 font-['Inter']" 
+      className="bg-black text-white mt-15 font-['Inter']" 
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
