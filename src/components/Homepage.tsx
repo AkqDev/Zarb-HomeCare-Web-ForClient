@@ -11,6 +11,7 @@ import {
 import { message } from "antd";
 
 import herobg from "../assets/main_bg.jpg";
+import mbg from "../assets/mbg.png";
 import product1 from "../assets/product1.jpg";
 import product2 from "../assets/product2.jpg";
 import product3 from "../assets/product3.jpg";
@@ -95,16 +96,29 @@ export default function Homepage({ onAddToCart }: HomepageProps) {
   return (
     <div className="bg-white font-[Poppins]">
       {/* ---------------- HERO ---------------- */}
-      <section className="relative h-[500px] md:h-[650px] overflow-hidden">
-        <motion.img
-          initial={{ scale: 1.15 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1.5, ease: [0.42, 0, 0.58, 1] }} // updated
-          src={herobg}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/20" />
-      </section>
+<section className="relative h-[500px] md:h-[650px] overflow-hidden">
+  {/* Desktop Hero */}
+  <motion.img
+    initial={{ scale: 1.15 }}
+    animate={{ scale: 1 }}
+    transition={{ duration: 1.5, ease: [0.42, 0, 0.58, 1] }}
+    src={herobg}
+    className="hidden md:block absolute inset-0 w-full h-full object-cover"
+  />
+
+  {/* Mobile Hero */}
+  <motion.img
+    initial={{ scale: 1.15 }}
+    animate={{ scale: 1 }}
+    transition={{ duration: 1.5, ease: [0.42, 0, 0.58, 1] }}
+    src={mbg}
+    className="block md:hidden absolute inset-0 w-full h-full object-contain "
+  />
+
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-black/20" />
+</section>
+
 
       {/* ---------------- FEATURES ---------------- */}
       <motion.section
@@ -164,7 +178,7 @@ export default function Homepage({ onAddToCart }: HomepageProps) {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
             {featuredProducts.map((product) => (
               <motion.div
                 key={product.id}
@@ -200,7 +214,7 @@ export default function Homepage({ onAddToCart }: HomepageProps) {
 
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 pb-12 px-6">
           {[
-            { icon: <Users />, title: "50,000+", text: "Happy Families" },
+            { icon: <Users />, title: "50,000+", text: "Happy customer's" },
             { icon: <ShieldCheck />, title: "Premium", text: "Quality Assurance" },
             { icon: <Leaf />, title: "Zero Chemicals", text: "Safe & Natural" },
           ].map((item, i) => (
