@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion";  // runtime import
+import type { Variants } from "framer-motion"; // type-only import
 import {
   Mail,
   Phone,
@@ -23,12 +24,12 @@ interface FormData {
 }
 
 /* ---------------- ANIMATIONS ---------------- */
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
+    transition: { duration: 0.6, ease: [0.42, 0, 0.58, 1] }, // replace string with array easing
   },
 };
 
@@ -53,7 +54,6 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Prepare WhatsApp message
     const messageText = `
 Hello ZARB Team!
 Name: ${formData.name}
@@ -63,12 +63,10 @@ Message: ${formData.message}
     `.trim();
 
     const encodedMessage = encodeURIComponent(messageText);
-    const whatsappNumber = "923261247039"; // ZARB WhatsApp number
+    const whatsappNumber = "923261247039";
 
-    // Open WhatsApp chat in new tab
     window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, "_blank");
 
-    // Reset form & show success
     setIsSubmitting(false);
     setIsSubmitted(true);
     setFormData({ name: "", email: "", phone: "", message: "" });
@@ -222,7 +220,7 @@ Message: ${formData.message}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 disabled={isSubmitting}
-                className="w-full bg-[#786808] text-white py-3 rounded-xl font-semibold shadow-lg"
+                className="w-full bg-[#786808] text-white py-3 rounded-xl font-semibold shadow-lg flex items-center justify-center"
               >
                 {isSubmitting ? "Sending…" : "Send Message"}
                 <Send className="inline-block w-5 h-5 ml-2" />
@@ -230,7 +228,6 @@ Message: ${formData.message}
             </form>
           </motion.div>
         </div>
-
       </div>
     </div>
   );
