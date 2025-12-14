@@ -35,7 +35,7 @@ export default function About() {
             
             {/* Story Text */}
             <motion.div variants={container} initial="hidden" animate="show">
-              <motion.h2 variants={item} className="text-4xl mb-6 font-bold text-[#786808] text-center md:text-left">Our Story</motion.h2>
+              <motion.h2 variants={item} className="text-4xl mb-6 font-bold text-[#786808] text-center md:text-left px-3">Our Story</motion.h2>
               <div className="space-y-4 text-gray-600 text-center md:text-left mx-3 md:mxauto">
                 <motion.p variants={item}>
                   **ZARB** was founded with a simple goal: to deliver reliable, durable, and ethically made everyday essentials. Our stainless steel scourers are crafted for superior performance, scratch resistance, and a premium, long-lasting finish.

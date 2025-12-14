@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion } from "framer-motion";  // runtime import
+import type { Variants } from "framer-motion"; // type-only import
 import {
   Leaf,
   Shield,
@@ -30,7 +31,7 @@ if (!document.getElementById("google-fonts")) {
 
 /* ---------------- ANIMATIONS ---------------- */
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 50, scale: 0.95 },
   visible: {
     opacity: 1,
@@ -40,7 +41,8 @@ const fadeUp = {
   },
 };
 
-const stagger = {
+
+const stagger: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.15 } },
 };
@@ -97,7 +99,7 @@ export default function Homepage({ onAddToCart }: HomepageProps) {
         <motion.img
           initial={{ scale: 1.15 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
+          transition={{ duration: 1.5, ease: [0.42, 0, 0.58, 1] }} // updated
           src={herobg}
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -163,7 +165,7 @@ export default function Homepage({ onAddToCart }: HomepageProps) {
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredProducts.map(product => (
+            {featuredProducts.map((product) => (
               <motion.div
                 key={product.id}
                 variants={fadeUp}
@@ -214,9 +216,7 @@ export default function Homepage({ onAddToCart }: HomepageProps) {
               <div className="mb-3 bg-gray-200 rounded-full p-3 text-[#786808]">
                 {item.icon}
               </div>
-              <h2 className="text-3xl font-bold text-gray-100">
-                {item.title}
-              </h2>
+              <h2 className="text-3xl font-bold text-gray-100">{item.title}</h2>
               <p className="text-sm mt-1 opacity-90">{item.text}</p>
             </motion.div>
           ))}
