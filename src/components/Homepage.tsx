@@ -96,7 +96,7 @@ export default function Homepage({ onAddToCart }: HomepageProps) {
   return (
     <div className="bg-white font-[Poppins]">
       {/* HERO */}
-<section className="relative h-[500px] md:h-[650px] overflow-hidden">
+<section className="relative h-[405px] md:h-[700px] overflow-hidden">
   {/* Desktop Hero */}
   <motion.img
     initial={{ scale: 1.15 }}

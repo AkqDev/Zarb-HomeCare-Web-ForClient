@@ -60,7 +60,7 @@ export default function About() {
 
             {/* Image */}
             <motion.div 
-              className="relative h-96 rounded-2xl overflow-hidden shadow-2xl"
+              className="relative h-auto rounded-2xl overflow-hidden shadow-2xl"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.6 }}
@@ -68,7 +68,7 @@ export default function About() {
               <img
                 src={about}
                 alt="Our Story"
-                className="w-full h-full object-contain" 
+                className="object-cover w-full h-full" 
               />
             </motion.div>
           </div>
