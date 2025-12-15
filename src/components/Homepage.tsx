@@ -95,7 +95,7 @@ export default function Homepage({ onAddToCart }: HomepageProps) {
 
   return (
     <div className="bg-white font-[Poppins]">
-      {/* ---------------- HERO ---------------- */}
+      {/* HERO */}
 <section className="relative h-[500px] md:h-[650px] overflow-hidden">
   {/* Desktop Hero */}
   <motion.img
@@ -112,7 +112,7 @@ export default function Homepage({ onAddToCart }: HomepageProps) {
     animate={{ scale: 1 }}
     transition={{ duration: 1.5, ease: [0.42, 0, 0.58, 1] }}
     src={mbg}
-    className="block md:hidden absolute inset-0 w-full h-full object-contain "
+    className="block md:hidden absolute inset-0 w-full h-full object-cover"
   />
 
   {/* Overlay */}
