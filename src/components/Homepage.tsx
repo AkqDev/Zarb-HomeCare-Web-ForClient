@@ -112,7 +112,7 @@ export default function Homepage({ onAddToCart }: HomepageProps) {
     animate={{ scale: 1 }}
     transition={{ duration: 1.5, ease: [0.42, 0, 0.58, 1] }}
     src={mbg}
-    className="block md:hidden absolute inset-0 w-full h-full object-contain bg-gray-900"
+    className="block md:hidden absolute inset-0 w-full h-full object-contain bg-black"
   />
 
   {/* Overlay */}
